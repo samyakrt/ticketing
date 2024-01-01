@@ -1,0 +1,12 @@
+{
+    "name": "ticketing",
+    "description": "Micro-service application with mono-repo",
+    "private": true,
+    "workspaces": [
+        "auth"
+    ],
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "<tuladharsamyak@gmail.com>",
+    "license": "MIT"
+}
