@@ -1,12 +1,14 @@
 FROM node:18-alpine
 
+ARG FOLDER
+
 WORKDIR /app/builder
 
-COPY package.json ./
-COPY yarn.lock ./
+COPY package.json .
+COPY yarn.lock .
 
-COPY auth ./auth
+COPY ./${FOLDER} ./${FOLDER}
 
-RUN ["yarn","install"]
+RUN yarn install
 
-CMD ["yarn","workspace","auth","start:dev"]
+CMD yarn workspace ${FOLDER} start:dev
