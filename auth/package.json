@@ -4,15 +4,20 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "http-status-codes": "^2.3.0",
+    "mongoose": "^8.0.3",
+    "zod": "^3.22.4"
   },
   "scripts": {
-    "start:dev":"nodemon"
+    "start:dev": "nodemon"
   },
   "nodemonConfig": {
-    "watch":[
+    "watch": [
       "src"
     ],
+    "ext": "ts",
     "exec": "ts-node --files -r tsconfig-paths/register src/"
   },
   "devDependencies": {
