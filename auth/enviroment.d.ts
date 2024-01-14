@@ -1,12 +1,12 @@
 import { UserDoc, UserModel } from "@/models/user"
 
-declare module 'express-serve-static-core' {
-    export interface Request {
+declare global {
+    namespace Express {
+        interface Request {
         session?: {
             token?: string
+        } | null
+        user: UserDoc;            
         }
-        user: UserDoc;
     }
 }
-
-export {}
