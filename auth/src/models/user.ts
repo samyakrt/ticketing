@@ -24,6 +24,16 @@ const UserSchema = new mongoose.Schema<UserDoc>({
     password: {
         type: String,
         required: true
+    },
+}, {
+    toJSON: {
+        transform(doc, ret, options) {
+            return  {
+                id: doc.id,
+                email: doc.email
+            }
+
+        },
     }
 })
 

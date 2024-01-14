@@ -18,9 +18,15 @@ spec:
           env:
             - name: FOLDER
               value: auth
+
+            - name: JWT_SERCRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: jwt
           ports:
             - containerPort: 3000
-
+          resourceLimit:
 
 ---
 apiVersion: v1
