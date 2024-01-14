@@ -1,4 +1,4 @@
-import { ValidationFailedError } from '@/core/exceptions';
+import { ValidationFailedException } from '@/core/exceptions';
 import { ExtractedErrorsType } from '@/core/types/error';
 import { NextFunction, Request, Response } from 'express';
 import z, { Schema } from 'zod';
@@ -18,7 +18,7 @@ const validateSchema = (schema: Schema) => {
           return acc;
         }, {} as ExtractedErrorsType);
 
-      throw new ValidationFailedError('validation failed', errors);
+      throw new ValidationFailedException('validation failed', errors);
     }
     req.body = parsed.data;
     next();

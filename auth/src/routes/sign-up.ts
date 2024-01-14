@@ -1,4 +1,4 @@
-import config from "@/core/config";
+import env from "@/core/env";
 import User from "@/models/user";
 import { SignUpPayload } from "@/schemas/sign-up-schema";
 import { Request, Response } from "express";
@@ -12,7 +12,7 @@ const signUp = async (req: Request<unknown, unknown, SignUpPayload>, res: Respon
     const token = jwt.sign({
         id: user.id,
         email: user.email
-    }, config.jwtSecret);
+    }, env.jwtSecret);
 
     req.session = {
         token

@@ -6,13 +6,13 @@ interface UserProps {
     password:string;
 }
 
-interface UserDoc extends mongoose.Document {
+export interface UserDoc extends mongoose.Document {
     email: string;
     password: string;
     
 
 }
-interface UserModel extends mongoose.Model<UserDoc> {
+export interface UserModel extends mongoose.Model<UserDoc> {
     build(payload: UserProps): UserDoc;
 }
 
@@ -48,7 +48,5 @@ UserSchema.pre('save',async function(done) {
 UserSchema.statics.build = (user: UserProps)  => new User(user);
 
 const User = mongoose.model<UserDoc,UserModel>('users',UserSchema);
-
-
 
 export default User;
