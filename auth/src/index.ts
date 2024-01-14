@@ -1,18 +1,30 @@
+import 'express-async-errors';
 import express from 'express';
 import routes from './routes';
-import 'express-async-errors';
 import handleErrors from './core/handle-errors';
 import { StatusCodes } from 'http-status-codes';
+import mongoose from 'mongoose';
 
 const app = express();
 
 app.use(express.json());
 
-app.use('/api/users',routes);
+app.use('/api/users', routes);
 
+
+
+const startDb = async () => {
+    try {
+        await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+            autoIndex: true,
+        })
+        console.log('Connected to mongodb')
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+startDb()
 app.use(handleErrors);
-app.use((req,res) => res.status(StatusCodes.NOT_FOUND).json({
-    message: 'URL not found'
-}));
 
-app.listen(3000,() => console.log('listening to 3000'))
+app.listen(3000, () => console.log('listening to 3000'))

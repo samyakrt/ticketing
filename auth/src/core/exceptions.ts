@@ -17,3 +17,9 @@ export class ValidationFailedError extends CustomError {
         super(message, httpStatusCodes.UNPROCESSABLE_ENTITY);
     }
 }
+
+export class RecordAlreadyExistsError extends CustomError {
+    constructor(message: string) {
+        super(message,httpStatusCodes.CONFLICT);
+    }
+}

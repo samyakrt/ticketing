@@ -5,4 +5,5 @@ const SignUpSchema = z.object({
     password: z.string().min(4).max(20)    
 });
 
+export type SignUpPayload = z.infer<typeof SignUpSchema>;
 export default SignUpSchema;
