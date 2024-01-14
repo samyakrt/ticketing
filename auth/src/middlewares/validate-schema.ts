@@ -4,8 +4,8 @@ import { NextFunction, Request, Response } from 'express';
 import z, { Schema } from 'zod';
 
 const validateSchema = (schema: Schema) => {
-    return (req: Request,res: Response, next: NextFunction) => {
-        const parsed = schema.safeParse(req.body);
+  return (req: Request, res: Response, next: NextFunction) => {
+    const parsed = schema.safeParse(req.body);
     if (!parsed.success) {
       const errors = parsed.error.issues
         .map(issue => [issue.path.join('.'), issue.message])
@@ -21,7 +21,8 @@ const validateSchema = (schema: Schema) => {
       throw new ValidationFailedError('validation failed', errors);
     }
     req.body = parsed.data;
-    }
+    next();
+  }
 }
 
 export default validateSchema;
