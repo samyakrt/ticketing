@@ -9,6 +9,6 @@ COPY yarn.lock .
 
 COPY ./${FOLDER} ./${FOLDER}
 
-RUN yarn install
+RUN yarn install --omit=dev
 
 CMD yarn workspace ${FOLDER} start:dev

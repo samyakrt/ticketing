@@ -4,32 +4,20 @@ import routes from './routes';
 import handleErrors from './core/handle-errors';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
+import app from './app';
 
-const app = express();
-
-app.set('trust proxy', true);
-app.use(express.json());
-app.use(cookieSession({
-    signed: false,
-    secure: false,
-}));
-
-app.use('/api/users', routes);
-
-
-
-const startDb = async () => {
+const startApp = async () => {
     try {
         await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
             autoIndex: true,
         })
-        console.log('Connected to mongodb')
+        console.log('Connected to mongodb');
+
+        app.listen(3000,() => console.log('listening to port 3000'))
     } catch (error) {
         console.error(error)
     }
 }
 
-startDb()
-app.use(handleErrors);
+startApp()
 
-app.listen(3000, () => console.log('listening to 3000'))
