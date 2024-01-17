@@ -5,8 +5,10 @@
     "workspaces": [
         "auth"
     ],
+    "scripts": {
+        "start:auth":"yarn workspace auth start:dev"
+    },
     "version": "1.0.0",
-    "main": "index.js",
     "author": "<tuladharsamyak@gmail.com>",
     "license": "MIT"
 }
