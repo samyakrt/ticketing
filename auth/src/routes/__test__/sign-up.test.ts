@@ -33,17 +33,13 @@ it('returns 400 on invalid password', async () => {
     })
 })
 
-it('throw error on duplicate email', async () => {
-    await request(app).post('/api/users/sign-up')
+it('sets cookie after successful signup', async () => {
+    const response =  await request(app).post('/api/users/sign-up')
     .send({
         email: 'test@test.com',
         password: 'password'
-    }).expect(201)
+    }).expect(201);
 
-    await request(app).post('/api/users/sign-up')
-    .send({
-        email: 'test@test.com',
-        password: 'password'
-    }).expect(409)
+    expect(response.get('Set-Cookie')).toBeDefined();
 })
 

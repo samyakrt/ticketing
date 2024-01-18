@@ -6,7 +6,8 @@
         "auth"
     ],
     "scripts": {
-        "start:auth":"yarn workspace auth start:dev"
+        "auth:start":"yarn workspace auth start:dev",
+        "auth:test":"yarn workspace auth test"
     },
     "version": "1.0.0",
     "author": "<tuladharsamyak@gmail.com>",
