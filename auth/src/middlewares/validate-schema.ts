@@ -1,7 +1,8 @@
 import { ValidationFailedException } from '@/core/exceptions';
 import { ExtractedErrorsType } from '@/core/types/error';
 import { NextFunction, Request, Response } from 'express';
-import z, { Schema } from 'zod';
+import z from '@/core/validators/zod';
+import { Schema } from 'zod';
 
 const validateSchema = (schema: Schema) => {
   return (req: Request, res: Response, next: NextFunction) => {

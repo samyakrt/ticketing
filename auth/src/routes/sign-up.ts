@@ -3,6 +3,7 @@ import User from "@/models/user";
 import { SignUpPayload } from "@/schemas/sign-up-schema";
 import { Request, Response } from "express";
 import jwt from 'jsonwebtoken';
+import httpStatusCodes from 'http-status-codes';
 
 const signUp = async (req: Request<unknown, unknown, SignUpPayload>, res: Response) => {
 
@@ -17,7 +18,7 @@ const signUp = async (req: Request<unknown, unknown, SignUpPayload>, res: Respon
     req.session = {
         token
     };
-    return res.json({
+    return res.status(httpStatusCodes.CREATED).json({
         user,
         mesage: 'User added successfully.'
     })

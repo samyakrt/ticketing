@@ -12,6 +12,12 @@ const errorMap: z.ZodErrorMap = (issue, ctx) => {
             return { message: 'invalid email' };
         }
     }
+
+  if (issue.code === z.ZodIssueCode.too_small) {
+    if (issue.type === 'string') {
+      return { message: `should contain at least ${issue.minimum} characters` };
+    }
+  }
     return { message: ctx.defaultError };
 };
 

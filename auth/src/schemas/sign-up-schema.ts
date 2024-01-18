@@ -1,4 +1,4 @@
-import z from 'zod';
+import z from '@/core/validators/zod';
 
 const SignUpSchema = z.object({
     email: z.string().email(),
