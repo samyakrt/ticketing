@@ -3,14 +3,17 @@ import request from "supertest";
 
 
 it('should return current user\'s logged in details', async () => {
-    const signUpResponse = await request(app).post('/api/users/sign-up').send({
-        email: 'test@test.com',
-        password: 'password'
-    })
+    const cookie = await globalThis.signIn();
     const response = await request(app)
     .get('/api/users/current-user')
-    .set('Cookie',signUpResponse.get('Set-Cookie'))
+    .set('Cookie',cookie)
     .expect(200)
 
     expect(response.body.email).toBe('test@test.com')
+})
+
+it('should throw unauthorized error when cookie is not provided', async () => {
+    await request(app)
+    .get('/api/users/current-user')
+    .expect(401)
 })
