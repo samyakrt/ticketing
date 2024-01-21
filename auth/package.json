@@ -16,11 +16,11 @@
   },
   "scripts": {
     "start:dev": "nodemon",
-    "test":"jest --watchAll --no-cache"
+    "test": "jest --watchAll --no-cache"
   },
   "jest": {
-    "preset":"ts-jest",
-    "testEnvironment":"node",
+    "preset": "ts-jest",
+    "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "./src/setup/test.ts"
     ],

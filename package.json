@@ -3,7 +3,8 @@
     "description": "Micro-service application with mono-repo",
     "private": true,
     "workspaces": [
-        "auth"
+        "auth",
+        "client"
     ],
     "scripts": {
         "auth:start":"yarn workspace auth start:dev",

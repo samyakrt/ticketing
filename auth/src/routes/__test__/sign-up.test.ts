@@ -17,6 +17,19 @@ it('returns 400 on invalid email', () => {
     }).expect(422)
 })
 
+it('throws error if user registers with same email',async () => {
+    await request(app).post('/api/users/sign-up')
+    .send({
+        email: 'test@test.com',
+        password: 'password'
+    }).expect(201)
+
+    await request(app).post('/api/users/sign-up')
+    .send({
+        email: 'test@test.com',
+        password: 'password'
+    }).expect(422)
+})
 
 it('returns 400 on invalid password', async () => {
     return request(app).post('/api/users/sign-up')

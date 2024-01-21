@@ -1,4 +1,4 @@
-import { RecordAlreadyExistsException } from "@/core/exceptions";
+import { RecordAlreadyExistsException, ValidationFailedException } from "@/core/exceptions";
 import User from "@/models/user"
 import { NextFunction, Request, Response } from "express"
 
@@ -6,7 +6,9 @@ const checkIfEmailExists = async (req: Request, res: Response, next: NextFunctio
     const user = await User.findOne({ email: req.body.email });
 
     if(user) {
-        throw new RecordAlreadyExistsException('Email already exists');
+        throw new ValidationFailedException('Duplicate email',{
+            email:['Email already used']
+        });
     }
     next();
 }
