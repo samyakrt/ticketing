@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken';
 const loggedInUser = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.session?.token;
 
-    console.log(token)
     if (!token) {
         throw new UnauthorizedException('Invalid token');
     }

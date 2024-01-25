@@ -26,7 +26,6 @@ spec:
                   key: jwt
           ports:
             - containerPort: 3000
-          resourceLimit:
 
 ---
 apiVersion: v1

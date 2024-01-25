@@ -1,19 +1,31 @@
 import React from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { User } from '../types/user';
-import {  InferGetServerSidePropsType } from 'next';
+import { InferGetServerSidePropsType, GetServerSideProps, Redirect } from 'next';
+import { serverClient } from '../api/build-client';
 
-export const getServerSideProps = (async () => {
-  const { data } = await axios.get<User>('http://ticketing.dev/api/users/current-user')
-  return { props: { user: data } }
-})
- 
 
-const LandingPage= ({ user  } : InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
+const LandingPage = ({ currentUser, }) => {
   return (<div>
-    hello
+    hello {currentUser?.email}
   </div>)
 }
- 
+
+export const getServerSideProps = async (context) => {
+  try {
+    const client = serverClient(context)
+    const { data } = await client.get<User>('/api/users/current-user')
+
+    return { props: { user: data } }
+  } catch (error: unknown) {
+    return {
+      props: {
+        user: null
+      }
+    }
+  }
+}
+
+
 export default LandingPage

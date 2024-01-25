@@ -15,10 +15,10 @@ interface ValidationFailedResponse<T extends string> {
 
 export type OnSubmit = (setErrors: UseFormSetError<FormField>) => (val: FormField) => Promise<void>
 
-const SignUp = () => {
+const SignIn = () => {
 
     const onSubmit:OnSubmit = (setError) => async (val) => {
-        axios.post('/api/users/sign-up', val)
+        axios.post('/api/users/sign-in', val)
             .then(() => router.push('/'))
             .catch((res: AxiosError<ValidationFailedResponse<'email' | 'password'>, any>) => {
                 if (res.response?.data.errors) {
@@ -40,4 +40,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default SignIn
