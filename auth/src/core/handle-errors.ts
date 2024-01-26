@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { CustomException, ValidationFailedException } from "./exceptions";
+import { ValidationFailedException, CustomException } from "shared";
 import httpStatusCodes from 'http-status-codes';
 import { ExtractedErrorsType } from "./types/error";
 

@@ -4,7 +4,8 @@
     "private": true,
     "workspaces": [
         "auth",
-        "client"
+        "client",
+        "shared"
     ],
     "scripts": {
         "auth:start":"yarn workspace auth start:dev",

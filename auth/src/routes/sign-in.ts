@@ -1,5 +1,5 @@
 import env from "@/core/env";
-import { BadRequestException } from "@/core/exceptions"
+import { BadRequestException } from "shared"
 import Password from "@/core/helpers/password"
 import User from "@/models/user"
 import { SignUpPayload } from "@/schemas/sign-up-schema"
@@ -23,7 +23,7 @@ const signIn = async (req: Request<unknown, SignUpPayload>, res: Response) => {
     const token = jwt.sign({
         id: user.id,
         email: user.email
-    },env.jwtSecret)
+    },env.JWT_SECRET)
 
     req.session = {
         token

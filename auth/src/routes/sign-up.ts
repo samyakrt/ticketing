@@ -13,7 +13,7 @@ const signUp = async (req: Request<unknown, unknown, SignUpPayload>, res: Respon
     const token = jwt.sign({
         id: user.id,
         email: user.email
-    }, env.jwtSecret);
+    }, env.JWT_SECRET);
 
     req.session = {
         token
