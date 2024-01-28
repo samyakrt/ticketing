@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { ValidationFailedException, CustomException } from "shared";
 import httpStatusCodes from 'http-status-codes';
-import { ExtractedErrorsType } from "./types/error";
+import { ExtractedErrorsType } from "../types/error";
+import { CustomException, ValidationFailedException } from "../errors";
 
 interface JsonResponse {
     message: string;

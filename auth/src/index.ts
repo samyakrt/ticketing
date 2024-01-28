@@ -1,9 +1,5 @@
 import 'express-async-errors';
-import express from 'express';
-import routes from './routes';
-import handleErrors from './core/handle-errors';
 import mongoose from 'mongoose';
-import cookieSession from 'cookie-session';
 import app from './app';
 
 const startApp = async () => {

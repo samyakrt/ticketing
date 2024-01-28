@@ -1,9 +1,9 @@
-import z from '@/core/validators/zod';
+import { zod } from "shared";
 
-const SignUpSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(4).max(20)    
+const SignUpSchema = zod.object({
+    email: zod.string().email(),
+    password: zod.string().min(4).max(20)    
 });
 
-export type SignUpPayload = z.infer<typeof SignUpSchema>;
+export type SignUpPayload = zod.infer<typeof SignUpSchema>;
 export default SignUpSchema;

@@ -14,11 +14,14 @@ spec:
     spec:
       containers:
         - name: ticketing
-          image: ticketing-auth-service
+          image: ticketing-service
           env:
             - name: FOLDER
               value: ticketing
 
+            - name: MONGODB_URI
+              value: mongodb://ticketing-mongo-srv:27017/tickets
+    
             - name: JWT_SERCRET
               valueFrom:
                 secretKeyRef:

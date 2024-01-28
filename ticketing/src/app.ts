@@ -1,7 +1,7 @@
 import 'express-async-errors';
 import express from 'express';
 import routes from './routes';
-import handleErrors from './core/handle-errors';
+// import handleErrors from './core/handle-errors';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
 
@@ -12,9 +12,9 @@ app.use(cookieSession({
     signed: false,
     secure: false,
 }));
-app.use('/api/users', routes);
+app.use('/api/tickets',routes);
 
-app.use(handleErrors);
+// app.use(handleErrors);
 
 
 export default app;
