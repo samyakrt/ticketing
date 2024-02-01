@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start:dev": "nodemon",
-    "test": "jest --watchAll --no-cache"
+    "test": "jest --watchAll --no-cache --detectOpenHandles"
   },
   "jest": {
     "preset": "ts-jest",

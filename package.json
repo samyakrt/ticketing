@@ -10,7 +10,8 @@
     ],
     "scripts": {
         "auth:start":"yarn workspace auth start:dev",
-        "auth:test":"yarn workspace auth test"
+        "auth:test":"yarn workspace auth test",
+        "shared:build":"yarn workspace shared build"
     },
     "version": "1.0.0",
     "author": "<tuladharsamyak@gmail.com>",

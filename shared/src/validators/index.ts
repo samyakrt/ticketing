@@ -18,6 +18,7 @@ const errorMap: z.ZodErrorMap = (issue, ctx) => {
       return { message: `should contain at least ${issue.minimum} characters` };
     }
   }
+
     return { message: ctx.defaultError };
 };
 
