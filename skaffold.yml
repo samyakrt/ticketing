@@ -25,3 +25,9 @@ build:
         manual:
           - src: 'client/**/*{.ts,.tsx}'
             dest: .
+    - image: ticketing-service
+      context: ./
+      docker:
+        dockerfile: be.dockerfile
+        buildArgs:
+          FOLDER: ticketing

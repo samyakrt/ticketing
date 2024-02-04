@@ -7,6 +7,8 @@ WORKDIR /app/builder
 COPY package.json .
 COPY yarn.lock .
 
+COPY ./shared ./shared
+
 COPY ./${FOLDER} ./${FOLDER}
 
 RUN yarn install --omit=dev
