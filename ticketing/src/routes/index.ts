@@ -3,9 +3,18 @@ import createTicket from './new';
 import { auth, validateSchema } from 'shared';
 import CreateTicketSchema from '@/schemas/create-ticket-schema';
 import showTicketDetail from './show';
+import queryTickets from './query-tickets';
+import { isValidTicket } from '@/middlewares';
+import updateTicket from './update-ticket';
 
 const router = Router();
 
-router.post('/',auth,validateSchema(CreateTicketSchema),createTicket)
-router.get('/:ticketId',auth,showTicketDetail)
+router.route('/:ticketId')
+    .get(auth, isValidTicket, showTicketDetail)
+    .patch(auth,isValidTicket,validateSchema(CreateTicketSchema),updateTicket);
+
+router.route('/')
+    .get(auth, queryTickets)
+    .post(auth, validateSchema(CreateTicketSchema), createTicket);
+
 export default router;
