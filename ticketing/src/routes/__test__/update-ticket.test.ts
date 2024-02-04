@@ -45,10 +45,18 @@ it('should throw 404 error when  unknown object id is provided', async () => {
 })
 
 
-it('throws 403 error if user is not the author', () => {
+it('throws 403 error if user is not the author',  async () => {
 
+    await createTicket();
+    const [ticket] = await Ticket.find();
+
+    const body = {
+        title: 'updated',
+        price: 300
+    }
+    const res1 = await request(app).patch('/api/tickets/' + ticket._id.toString()).set('Cookie', globalThis.signIn('4345')).send(body)
+    expect(res1.status).toBe(403);
 })
-
 
 it('should update ticket', async () => {
     await createTicket();

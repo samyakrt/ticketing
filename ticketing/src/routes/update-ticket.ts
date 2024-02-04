@@ -1,11 +1,11 @@
 import Ticket from "@/models/ticket";
 import { Request, Response } from "express";
-import { NotFoundException, UnauthorizedException } from "shared";
+import { ForbiddenException, NotFoundException, UnauthorizedException } from "shared";
 
 const updateTicket = async (req: Request, res: Response) => {
     const ticket = await Ticket.findById(req.params.ticketId);
     if(req.user.id !== ticket?.userId) {
-        throw new UnauthorizedException()
+        throw new ForbiddenException('permission denied');
     }
 
     if(!ticket) {

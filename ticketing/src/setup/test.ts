@@ -27,12 +27,12 @@ afterAll(async () => {
 it('runs',() => expect(2).toBe(2))
 
 declare global {
-    var signIn: () => string[];
+    var signIn: (id?: string) => string[];
   }
 
-global.signIn = () => {
+global.signIn = (id = '1234') => {
     const payload = {
-        id:'1234',
+        id,
         email: 'test@test.com'
     };
     const token = jwt.sign(payload,secret!)
