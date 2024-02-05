@@ -27,12 +27,12 @@ afterAll(async () => {
 it('runs',() => expect(2).toBe(2))
 
 declare global {
-    var signIn: (id?: string) => string[];
+    var signIn: () => string[];
   }
 
-global.signIn = (id = '1234') => {
+global.signIn = () => {
     const payload = {
-        id,
+        id: new mongoose.Types.ObjectId().toHexString(),
         email: 'test@test.com'
     };
     const token = jwt.sign(payload,secret!)
