@@ -1,5 +1,6 @@
 import { Message, Stan } from "node-nats-streaming";
-import { TicketCreatedEvent, TicketUpdatedEvent } from './events/tickets';
+import { TicketCreatedEvent } from './events/tickets/ticket-created-event';
+import { TicketUpdatedEvent } from './events/tickets/ticket-updated-event';
 
 type Event = (TicketCreatedEvent | TicketUpdatedEvent)
 
