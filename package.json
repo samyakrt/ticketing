@@ -9,11 +9,11 @@
         "ticketing"
     ],
     "scripts": {
-        "auth:start":"yarn workspace auth start:dev",
-        "auth:test":"yarn workspace auth test",
-        "shared:build":"yarn workspace shared build"
+        "auth:start": "yarn workspace auth start:dev",
+        "auth:test": "yarn workspace auth test",
+        "shared:build": "yarn workspace shared build"
     },
-    "version": "1.0.0",
+    "version": "1.1.0",
     "author": "<tuladharsamyak@gmail.com>",
     "license": "MIT"
 }
