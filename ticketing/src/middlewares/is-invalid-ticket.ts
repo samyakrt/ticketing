@@ -1,7 +1,7 @@
 import Ticket from "@/models/ticket";
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
-import { BadRequestException, NotFoundException } from "shared";
+import { BadRequestException, NotFoundException } from "@ticketing/shared";
 
 const isValidTicket = async (req: Request, res: Response,next: NextFunction ) => {
     if (!mongoose.isValidObjectId(req.params.ticketId)) {

@@ -1,14 +1,15 @@
 import 'express-async-errors';
-import express from 'express';
 import mongoose from 'mongoose';
-import cookieSession from 'cookie-session';
 import app from './app';
+import { natsWrapper } from '@ticketing/shared';
 
 const startApp = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URI!, {
             autoIndex: true,
         })
+        
+        await natsWrapper.connect('ticketing','asd','http://nats-srv:4222');
         console.log('Connected to mongodb');
 
         app.listen(3000,() => console.log('listening to port 3000'))

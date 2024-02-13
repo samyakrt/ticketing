@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import createTicket from './new';
-import { auth, validateSchema } from 'shared';
+import { auth, validateSchema } from '@ticketing/shared';
 import CreateTicketSchema from '@/schemas/create-ticket-schema';
 import showTicketDetail from './show';
 import queryTickets from './query-tickets';

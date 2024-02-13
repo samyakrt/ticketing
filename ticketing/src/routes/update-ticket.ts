@@ -1,6 +1,6 @@
 import Ticket from "@/models/ticket";
 import { Request, Response } from "express";
-import { ForbiddenException, NotFoundException, UnauthorizedException } from "shared";
+import { ForbiddenException, NotFoundException, UnauthorizedException } from "@ticketing/shared";
 
 const updateTicket = async (req: Request, res: Response) => {
     const ticket = await Ticket.findById(req.params.ticketId);
