@@ -2,7 +2,7 @@ import 'express-async-errors';
 import express from 'express';
 import routes from './routes';
 import cookieSession from 'cookie-session';
-import { handleErrors } from 'shared';
+import { handleErrors } from '@ticketing/shared';
 
 const app = express();
 app.set('trust proxy', true);

@@ -7,7 +7,7 @@ import SignUpSchema from '@/schemas/sign-up-schema';
 import signUp from './sign-up';
 import checkIfEmailExists from '@/middlewares/check-if-email-exists';
 import signOut from './sign-out';
-import { validateSchema, auth, currentUser as currentUserMiddleware  } from 'shared';
+import { validateSchema, auth, currentUser as currentUserMiddleware  } from '@ticketing/shared';
 
 const routes = express();
 

@@ -10,8 +10,13 @@ const currentUser = async (req: Request, res: Response, next: NextFunction) => {
     if (!token) {
         throw new UnauthorizedException('Invalid token');
     };
-    const user = jwt.verify(token,process.env.JWT_SECRET!) as User | null; 
-    req.user= user;
+    const user = jwt.verify(token, process.env.JWT_SECRET!) as User | null;
+    if(user) {
+        req.user = {
+            email: user.email,
+            id: user.id
+        };
+    }
     next()
 
 }

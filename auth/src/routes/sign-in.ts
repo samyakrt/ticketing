@@ -1,5 +1,5 @@
 import env from "@/core/env";
-import { BadRequestException } from "shared"
+import { BadRequestException } from "@ticketing/shared"
 import Password from "@/core/helpers/password"
 import User from "@/models/user"
 import { SignUpPayload } from "@/schemas/sign-up-schema"

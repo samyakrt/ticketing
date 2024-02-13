@@ -1,4 +1,4 @@
-import { zod } from "shared";
+import { zod } from "@ticketing/shared";
 
 const SignUpSchema = zod.object({
     email: zod.string().email(),

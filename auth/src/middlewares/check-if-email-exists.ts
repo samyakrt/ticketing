@@ -1,6 +1,6 @@
 import User from "@/models/user"
 import { NextFunction, Request, Response } from "express"
-import { ValidationFailedException } from "shared";
+import { ValidationFailedException } from "@ticketing/shared";
 
 const checkIfEmailExists = async (req: Request, res: Response, next: NextFunction) => {
     const user = await User.findOne({ email: req.body.email });

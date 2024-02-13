@@ -1,5 +1,6 @@
 import Ticket from "@/models/ticket";
 import { Request, Response } from "express";
+import { TicketCreatedPublisher } from '@/events';
 
 const createTicket = async (req: Request, res: Response) => {
     const ticket = Ticket.build({
