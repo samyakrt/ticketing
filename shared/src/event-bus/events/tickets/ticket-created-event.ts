@@ -4,7 +4,7 @@ export interface TicketCreatedEvent  {
     subject: Subjects.ticketCreated,
     data: {
         id: string;
-        name: string;
+        title: string;
         price: number;
         userId: string;
     }

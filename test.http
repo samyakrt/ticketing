@@ -5,3 +5,31 @@ Content-Type: application/json
     "email":"samyak@mail.com",
     "password":"password"
 }
+
+###
+POST http://ticketing.dev/api/users/sign-in
+Content-Type: application/json
+
+{
+    "email":"samyak@mail.com",
+    "password":"password"
+}
+
+###
+POST http://ticketing.dev/api/tickets
+Content-Type: application/json
+
+{
+    "title":"test",
+    "price":400
+}
+
+
+###
+PATCH http://ticketing.dev/api/tickets/65cb8ecf132f1ca5783e1c3b
+Content-Type: application/json
+
+{
+    "title":"updated",
+    "price":20
+}

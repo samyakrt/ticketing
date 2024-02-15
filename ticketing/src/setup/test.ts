@@ -3,6 +3,7 @@ import app from '@/app';
 import mongoose from 'mongoose';
 import request from 'supertest';
 import jwt from 'jsonwebtoken';
+jest.mock('@/nats-wrapper')
 
 let mongod: MongoMemoryServer;
 const secret = 'sekret100';
@@ -13,6 +14,7 @@ beforeAll( async () => {
 })
 
 beforeEach(async () => {
+    jest.clearAllMocks();
     const collections = await mongoose.connection.db.collections();
     for await (const collection of collections) {
             await collection.deleteMany();

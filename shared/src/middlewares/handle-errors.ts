@@ -16,6 +16,7 @@ const handleErrors = (err :Record<keyof JsonResponse,string & ExtractedErrorsTyp
     if(err instanceof ValidationFailedException) {
         payload.errors = err.errors;
     }
+    console.error(err)
     res.status(status).json(payload)
 }
 

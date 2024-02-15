@@ -2,6 +2,7 @@ import app from '@/app';
 import Ticket from '@/models/ticket';
 import mongoose from 'mongoose';
 import request from 'supertest';
+import { natsWrapper } from '@/nats-wrapper';
 
 const createTicket = async () => {
 
@@ -76,4 +77,20 @@ it('should update ticket', async () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.title).toBe(body.title)
     expect(res.body.price).toBe(body.price)
+})
+
+
+it('publishes an event', async () => {
+    const cookie = await createTicket();
+
+    const [ticket] = await Ticket.find();
+
+    const body = {
+        title: 'updated',
+        price: 300
+    }
+    const res1 = await request(app).patch('/api/tickets/' + ticket._id.toString()).set('Cookie', cookie).send(body)
+    expect(res1.status).toBe(200);
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2)
+
 })
