@@ -1,7 +1,7 @@
 import 'express-async-errors';
 import mongoose from 'mongoose';
 import app from './app';
-import { natsWrapper } from '@ticketing/shared';
+import { natsWrapper } from './nats-wrapper';
 
 const startApp = async () => {
     try {

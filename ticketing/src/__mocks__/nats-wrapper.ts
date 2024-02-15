@@ -1,4 +1,7 @@
 export const natsWrapper = {
-    connect: () => jest.fn().mockResolvedValue(true),
-    
+    client:{
+        publish(subject: string,data: Record<string,unknown>, callback: ()=> void) {
+            callback();
+        }
+    }
 }

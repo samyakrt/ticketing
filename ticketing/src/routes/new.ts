@@ -1,7 +1,7 @@
 import Ticket from "@/models/ticket";
 import { Request, Response } from "express";
 import { TicketCreatedPublisher } from '@/events';
-import { natsWrapper } from "@ticketing/shared";
+import { natsWrapper } from '@/nats-wrapper'
 
 const createTicket = async (req: Request, res: Response) => {
     const ticket = Ticket.build({
@@ -10,7 +10,7 @@ const createTicket = async (req: Request, res: Response) => {
         userId: req.user.id,
     })
     await ticket.save();
-     
+
     await new TicketCreatedPublisher(natsWrapper.client).publish({
         id: ticket.id,
         title: ticket.title,

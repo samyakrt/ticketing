@@ -3,6 +3,7 @@ import app from '@/app';
 import mongoose from 'mongoose';
 import request from 'supertest';
 import jwt from 'jsonwebtoken';
+jest.mock('@/nats-wrapper')
 
 let mongod: MongoMemoryServer;
 const secret = 'sekret100';

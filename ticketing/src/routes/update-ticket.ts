@@ -1,6 +1,7 @@
 import Ticket from "@/models/ticket";
 import { Request, Response } from "express";
-import { ForbiddenException, NotFoundException, UnauthorizedException, natsWrapper } from "@ticketing/shared";
+import { ForbiddenException, NotFoundException } from "@ticketing/shared";
+import { natsWrapper } from '@/nats-wrapper';
 import { TicketUpdatedPublisher } from "@/events";
 
 const updateTicket = async (req: Request, res: Response) => {
