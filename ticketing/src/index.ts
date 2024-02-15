@@ -2,14 +2,15 @@ import 'express-async-errors';
 import mongoose from 'mongoose';
 import app from './app';
 import { natsWrapper } from './nats-wrapper';
+import env from './env';
 
 const startApp = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URI!, {
+        await mongoose.connect(env.MONGODB_URI, {
             autoIndex: true,
         })
         
-        await natsWrapper.connect('ticketing','asd','http://nats-srv:4222');
+        await natsWrapper.connect(env.NATS_CLUSTER_ID,env.NATS_CLIENT_ID,env.NATS_URL);
         natsWrapper.client.on('close', () => {
             process.exit()
         })

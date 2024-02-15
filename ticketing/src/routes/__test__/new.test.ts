@@ -1,6 +1,8 @@
 import app from '@/app';
 import Ticket from '@/models/ticket';
 import request from 'supertest';
+import { natsWrapper } from '@/nats-wrapper';
+
 jest.mock('@/nats-wrapper')
 
 it('has a route handler listening to /api/tickets for post request', async () => {
@@ -49,4 +51,16 @@ it('creates a ticket if valid input is provided', async () => {
      expect(tickets[0].title).toBe(body.title);
      expect(tickets[0].id).toBeDefined();
      expect(tickets[0].price).toBe(body.price);
+})
+
+
+it('publishes an event ', async () => {
+    const body = {
+        title: 'hello',
+        price: 20
+    }
+     const res = await request(app).post('/api/tickets').set('Cookie', globalThis.signIn()).send(body);
+     expect(res.statusCode).toBe(201)
+
+     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1)
 })
