@@ -31,3 +31,9 @@ build:
         dockerfile: be.dockerfile
         buildArgs:
           FOLDER: ticketing
+    - image: orders-service
+      context: ./
+      docker:
+        dockerfile: be.dockerfile
+        buildArgs:
+          FOLDER: orders

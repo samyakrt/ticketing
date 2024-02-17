@@ -6,7 +6,8 @@
         "auth",
         "client",
         "shared",
-        "ticketing"
+        "ticketing",
+        "orders"
     ],
     "scripts": {
         "auth:start": "yarn workspace auth start:dev",
