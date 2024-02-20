@@ -1,6 +1,6 @@
 import 'express-async-errors';
 import express from 'express';
-// import routes from './routes';
+import routes from './routes';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
 import { currentUser,NotFoundException, handleErrors } from '@ticketing/shared';
@@ -14,9 +14,9 @@ app.use(cookieSession({
 }));
 app.use(currentUser);
 
-// app.use('/api/orders',routes);
+app.use('/api/orders',routes);
 
-app.all('*',(req,res) => {
+app.all('*',() => {
     throw new NotFoundException();
 });
 app.use(handleErrors);
