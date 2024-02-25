@@ -1,11 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 import { OrderStatus } from '@ticketing/shared'
 import { TicketDoc } from "./ticket";
+
+export { OrderStatus };
 interface OrderAttrs {
     userId: string;
     status: OrderStatus;
     expiresAt: Date;
-    ticket:TicketDoc;
+    ticket: TicketDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
@@ -16,7 +18,7 @@ interface OrderDoc extends mongoose.Document {
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
-    build(attrs:OrderAttrs): OrderDoc
+    build(attrs: OrderAttrs): OrderDoc
 }
 
 const OrderSchema = new mongoose.Schema<OrderDoc>({
@@ -40,7 +42,7 @@ const OrderSchema = new mongoose.Schema<OrderDoc>({
     }
 }, {
     toJSON: {
-        transform(doc,ret,_) {
+        transform(doc, ret, _) {
             ret.id = ret._id;
             delete ret._id;
         }
@@ -48,6 +50,6 @@ const OrderSchema = new mongoose.Schema<OrderDoc>({
 })
 OrderSchema.statics.build = (ticket: OrderAttrs) => new Order(ticket);
 
-const Order =  mongoose.model<OrderDoc, OrderModel>('orders',OrderSchema);
+const Order = mongoose.model<OrderDoc, OrderModel>('orders', OrderSchema);
 
 export default Order;
