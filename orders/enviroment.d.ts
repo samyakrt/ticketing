@@ -1,4 +1,4 @@
-import { UserDoc, UserModel } from "@/models/user"
+import { User } from "@ticketing/shared";
 
 declare global {
     namespace Express {
@@ -6,7 +6,7 @@ declare global {
         session?: {
             token?: string
         } | null
-        user: UserDoc;            
+        user: User;          
         }
     }
 }

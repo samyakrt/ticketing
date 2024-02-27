@@ -1,10 +1,13 @@
 import app from "@/app";
 import request from 'supertest';
-import httpStatusCodes from 'http-status-codes';
+import httpStatusCodes, { StatusCodes } from 'http-status-codes';
 import Ticket from "@/model/ticket";
 import mongoose from "mongoose";
+import { OrderStatus } from "@ticketing/shared";
+import Order from "@/model/order";
+import { now } from "lodash";
 
-describe('handler error', () => {
+describe('validations', () => {
     it('throws error if ticketId is not provided', async () => {
         const res = await request(app)
             .post('/api/orders')
@@ -23,9 +26,10 @@ describe('handler error', () => {
             })
         expect(res.statusCode).toBe(httpStatusCodes.UNPROCESSABLE_ENTITY)
     })
+})
 
-
-    it('throws error if ticketId is invalid', async () => {
+describe('Route handler', () => {
+    it('throws error if ticketId is not found', async () => {
 
         const res = await request(app)
             .post('/api/orders')
@@ -35,10 +39,26 @@ describe('handler error', () => {
             })
         expect(res.statusCode).toBe(httpStatusCodes.NOT_FOUND);
     })
-})
+    it('throws error if the ticket is already reserved', async () => {
+        const ticket = Ticket.build({ price: 10, title: 'amsterdam' });
+        await ticket.save();
 
-describe('Route handler', () => {
-    
+        const order = Order.build({
+            status: OrderStatus.Created,
+            expiresAt: new Date(),
+            ticket,
+            userId: 'asd'
+        })
+        await order.save();
+
+        const res = await request(app)
+            .post('/api/orders')
+            .set('Cookie', globalThis.signIn())
+            .send({
+                ticketId: ticket._id
+            })
+        expect(res.statusCode).toBe(StatusCodes.FORBIDDEN)
+    })
     it('creates new order', async () => {
         const ticket = Ticket.build({ price: 10, title: 'amsterdam' });
         await ticket.save();
@@ -51,4 +71,6 @@ describe('Route handler', () => {
             })
         expect(res.statusCode).toBe(httpStatusCodes.CREATED);
     })
+
+    it.todo('emits an event')
 })
