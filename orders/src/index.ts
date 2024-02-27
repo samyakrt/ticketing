@@ -22,7 +22,7 @@ const startApp = async () => {
     }
 }
 
+startApp()
 process.on('SIGINT', () => natsWrapper.client.close())
 process.on('SIGTERM', () => natsWrapper.client.close())
-startApp()
 
