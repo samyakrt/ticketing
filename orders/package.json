@@ -27,7 +27,8 @@
     ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
-    }
+    },
+    "verbose":true
   },
   "nodemonConfig": {
     "watch": [
