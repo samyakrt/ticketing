@@ -5,7 +5,6 @@ import Ticket from "@/model/ticket";
 import mongoose from "mongoose";
 import { OrderStatus } from "@ticketing/shared";
 import Order from "@/model/order";
-import { now } from "lodash";
 
 describe('validations', () => {
     it('throws error if ticketId is not provided', async () => {

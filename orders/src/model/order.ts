@@ -38,7 +38,7 @@ const OrderSchema = new mongoose.Schema<OrderDoc>({
     },
     ticket: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Ticket'
+        ref: 'tickets'
     }
 }, {
     toJSON: {
