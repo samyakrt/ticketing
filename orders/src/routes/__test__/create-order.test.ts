@@ -5,6 +5,9 @@ import Ticket from "@/model/ticket";
 import mongoose from "mongoose";
 import { OrderStatus } from "@ticketing/shared";
 import Order from "@/model/order";
+import { natsWrapper } from '@/nats-wrapper';
+
+jest.mock('@/nats-wrapper')
 
 describe('validations', () => {
     it('throws error if ticketId is not provided', async () => {
@@ -68,8 +71,8 @@ describe('Route handler', () => {
             .send({
                 ticketId: ticket.id
             })
+        expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1)
         expect(res.statusCode).toBe(httpStatusCodes.CREATED);
     })
 
-    it.todo('emits an event')
 })

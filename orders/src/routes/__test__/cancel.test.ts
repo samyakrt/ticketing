@@ -4,6 +4,9 @@ import Ticket from '@/model/ticket';
 import { OrderStatus } from '@ticketing/shared';
 import { StatusCodes } from 'http-status-codes';
 import request from 'supertest';
+import { natsWrapper } from '@/nats-wrapper';
+
+jest.mock('@/nats-wrapper')
 
 it('throws an error if payment is not order status', async () => {
     const ticket = Ticket.build({ price: 20, title: 'test' });
@@ -38,6 +41,8 @@ it('updates order status', async () => {
 
     const { body: [updatedOrder] } = await request(app).get('/api/orders').set('Cookie', userSession).send();
     expect(updatedOrder.status).toBe(OrderStatus.Cancelled)
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2)
+
 })
 
 it.todo('emits an order cancelled event')

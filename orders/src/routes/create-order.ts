@@ -3,6 +3,8 @@ import Ticket from '@/model/ticket';
 import { ForbiddenException, NotFoundException, OrderStatus } from '@ticketing/shared';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { natsWrapper } from '@/nats-wrapper';
+import { OrderCreatedPublisher } from '@/events/order-created-publisher';
 
 const createOrder = async (req: Request, res: Response) => {
     // find the ticket the user is trying to order
@@ -30,6 +32,16 @@ const createOrder = async (req: Request, res: Response) => {
 
     await order.save();
     // publish event order was created
+    new OrderCreatedPublisher(natsWrapper.client).publish({
+        id: order.id,
+        status: order.status,
+        userId: order.userId,
+        expiresAt: expiration.toISOString(),
+        ticket: {
+            id: ticket.id,
+            price: ticket.price,
+        }
+    })
     return res.status(StatusCodes.CREATED).json({});
 }
 
