@@ -45,4 +45,4 @@ it('updates order status', async () => {
 
 })
 
-it.todo('emits an order cancelled event')
+// it.todo('emits an order cancelled event')

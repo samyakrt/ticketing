@@ -21,7 +21,8 @@ const updateTicket = async (req: Request, res: Response) => {
         id: ticket.id,
         price: ticket.price,
         title: ticket.title,
-        userId: ticket.userId
+        userId: ticket.userId,
+        version: ticket.version,
     });
     return res.json();
 }
