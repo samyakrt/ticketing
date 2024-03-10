@@ -43,8 +43,8 @@ const schema = new mongoose.Schema<TicketDoc>({
     },
     optimisticConcurrency: true,
     versionKey: 'version',
-    
-})
+});
+
 schema.statics.build = (attrs: TicketAttrs) => new Ticket({...attrs, _id: attrs.id});
 schema.statics.findByEvent = (payload: EventPayload) => Ticket.findOne({
     _id: payload.id,
