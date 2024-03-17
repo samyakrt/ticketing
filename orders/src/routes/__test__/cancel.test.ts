@@ -5,11 +5,12 @@ import { OrderStatus } from '@ticketing/shared';
 import { StatusCodes } from 'http-status-codes';
 import request from 'supertest';
 import { natsWrapper } from '@/nats-wrapper';
+import mongoose from 'mongoose';
 
 jest.mock('@/nats-wrapper')
 
 it('throws an error if payment is not order status', async () => {
-    const ticket = Ticket.build({ price: 20, title: 'test' });
+    const ticket = Ticket.build({ id: new mongoose.Types.ObjectId().toHexString(),price: 20, title: 'test' });
     await ticket.save();
     const userSession = globalThis.signIn();
     await request(app).post('/api/orders').set('Cookie', userSession).send({
@@ -27,7 +28,7 @@ it('throws an error if payment is not order status', async () => {
 })
 
 it('updates order status', async () => {
-    const ticket = Ticket.build({ price: 20, title: 'test' });
+    const ticket = Ticket.build({id: new mongoose.Types.ObjectId().toHexString(), price: 20, title: 'test' });
     await ticket.save();
     const userSession = globalThis.signIn();
     await request(app).post('/api/orders').set('Cookie', userSession).send({

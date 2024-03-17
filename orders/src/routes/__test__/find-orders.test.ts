@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import request from 'supertest';
 
 const buildTicket = async () => {
-    const ticket = Ticket.build({ title: 'convert',price: 20})
+    const ticket = Ticket.build({id: new mongoose.Types.ObjectId().toHexString(), title: 'convert',price: 20})
     await ticket.save();
     return ticket
 }

@@ -1,6 +1,6 @@
 import Ticket from "@/models/ticket";
 import { Request, Response } from "express";
-import { ForbiddenException, NotFoundException } from "@ticketing/shared";
+import { BadRequestException, ForbiddenException, NotFoundException } from "@ticketing/shared";
 import { natsWrapper } from '@/nats-wrapper';
 import { TicketUpdatedPublisher } from "@/events";
 
@@ -14,6 +14,13 @@ const updateTicket = async (req: Request, res: Response) => {
         throw new NotFoundException('Ticket not found')
     }
 
+    if(ticket.orderId) {
+        throw new BadRequestException('Cannot edit a reserved ticket');
+    }
+
+    if(ticket.userId !== req.user.id) {
+        throw new ForbiddenException('forbidden');
+    }
     ticket.title = req.body.title;
     ticket.price = req.body.price;
     await ticket.save();

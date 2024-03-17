@@ -42,7 +42,9 @@ describe('Route handler', () => {
         expect(res.statusCode).toBe(httpStatusCodes.NOT_FOUND);
     })
     it('throws error if the ticket is already reserved', async () => {
-        const ticket = Ticket.build({ price: 10, title: 'amsterdam' });
+        const ticket = Ticket.build({ 
+            id: new mongoose.Types.ObjectId().toHexString(),
+            price: 10, title: 'amsterdam' });
         await ticket.save();
 
         const order = Order.build({
@@ -62,7 +64,7 @@ describe('Route handler', () => {
         expect(res.statusCode).toBe(StatusCodes.FORBIDDEN)
     })
     it('creates new order', async () => {
-        const ticket = Ticket.build({ price: 10, title: 'amsterdam' });
+        const ticket = Ticket.build({id: new mongoose.Types.ObjectId().toHexString(), price: 10, title: 'amsterdam' });
         await ticket.save();
 
         const res = await request(app)

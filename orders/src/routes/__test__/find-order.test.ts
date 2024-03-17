@@ -2,11 +2,13 @@ import app from '@/app';
 import Order from '@/model/order';
 import Ticket from '@/model/ticket';
 import { StatusCodes } from 'http-status-codes';
+import mongoose from 'mongoose';
 import request from 'supertest';
 
 it('prevent user from accesing other user\'s order', async () => {
     // creates a ticket
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         price: 20,
         title: 'ticket'
     });
@@ -25,6 +27,7 @@ it('prevent user from accesing other user\'s order', async () => {
 it('fetches the order', async () => {
     // creates a ticket
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         price: 20,
         title: 'ticket'
     });

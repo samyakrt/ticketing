@@ -9,6 +9,7 @@ import { Message } from 'node-nats-streaming';
 const setup = async () => {
     const listener = new TicketUpdatedListener(natsWrapper.client);
     const ticket=  Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         price: 20,
         title: 'kon',
     })
