@@ -5,6 +5,9 @@ import Ticket from "@/model/ticket";
 import mongoose from "mongoose";
 import { OrderStatus } from "@ticketing/shared";
 import Order from "@/model/order";
+import { natsWrapper } from '@/nats-wrapper';
+
+jest.mock('@/nats-wrapper')
 
 describe('validations', () => {
     it('throws error if ticketId is not provided', async () => {
@@ -39,7 +42,9 @@ describe('Route handler', () => {
         expect(res.statusCode).toBe(httpStatusCodes.NOT_FOUND);
     })
     it('throws error if the ticket is already reserved', async () => {
-        const ticket = Ticket.build({ price: 10, title: 'amsterdam' });
+        const ticket = Ticket.build({ 
+            id: new mongoose.Types.ObjectId().toHexString(),
+            price: 10, title: 'amsterdam' });
         await ticket.save();
 
         const order = Order.build({
@@ -59,7 +64,7 @@ describe('Route handler', () => {
         expect(res.statusCode).toBe(StatusCodes.FORBIDDEN)
     })
     it('creates new order', async () => {
-        const ticket = Ticket.build({ price: 10, title: 'amsterdam' });
+        const ticket = Ticket.build({id: new mongoose.Types.ObjectId().toHexString(), price: 10, title: 'amsterdam' });
         await ticket.save();
 
         const res = await request(app)
@@ -68,8 +73,8 @@ describe('Route handler', () => {
             .send({
                 ticketId: ticket.id
             })
+        expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1)
         expect(res.statusCode).toBe(httpStatusCodes.CREATED);
     })
 
-    it.todo('emits an event')
 })

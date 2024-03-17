@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 interface TicketProps {
     title: string;
@@ -10,6 +10,8 @@ interface TicketDoc extends mongoose.Document {
     title: string;
     price: number;
     userId: string;
+    version: number;
+    orderId: string;
 }
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
@@ -29,7 +31,13 @@ const TicketingSchema = new mongoose.Schema<TicketDoc>({
         type: String,
         required: true,
     },
+    orderId: {
+        type: String,
+        required: false
+    }
 }, {
+    optimisticConcurrency: true,
+    versionKey: 'version',
     toJSON: {
         transform(doc,ret,_) {
             ret.id = ret._id;
@@ -37,7 +45,8 @@ const TicketingSchema = new mongoose.Schema<TicketDoc>({
             return {
                 id: doc.id,
                 title: doc.title,
-                price: doc.price
+                price: doc.price,
+                orderId: doc.orderId
             }
         }
     }

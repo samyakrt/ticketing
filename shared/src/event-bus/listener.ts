@@ -1,12 +1,13 @@
 import { Message, Stan } from "node-nats-streaming";
 import { TicketCreatedEvent } from './events/tickets/ticket-created-event';
 import { TicketUpdatedEvent } from './events/tickets/ticket-updated-event';
+import { OrderCancelledEvent, OrderCreatedEvent } from "./events/orders";
 
-type Event = (TicketCreatedEvent | TicketUpdatedEvent)
+type Event = (TicketCreatedEvent | TicketUpdatedEvent  | OrderCreatedEvent | OrderCancelledEvent)
 
 export abstract class Listener<T extends Event> {
     protected ackWait = 5 * 1000;
-    private client: Stan;
+    protected client: Stan;
     abstract queueGroupName: string;
     abstract subject: T['subject'];
     abstract onMessage(data: T['data'], message: Message): Promise<void>

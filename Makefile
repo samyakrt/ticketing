@@ -3,3 +3,6 @@ delete-admission:
 
 run:
 	skaffold dev --no-prune=false --cache-artifacts=false
+
+forward:
+	kubectl port-forward service/

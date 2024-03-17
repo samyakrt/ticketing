@@ -94,3 +94,18 @@ it('publishes an event', async () => {
     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2)
 
 })
+
+it('throws error if ticket is reserved', async() => {
+    
+    const cookie = await createTicket();
+    const [ticket] = await Ticket.find();
+
+    await ticket.set({orderId: new mongoose.Types.ObjectId().toHexString()}).save()
+    const body = {
+        title: 'updated',
+        price: 300
+    }
+    const res1 = await request(app).patch('/api/tickets/' + ticket._id.toString()).set('Cookie', cookie).send(body)
+
+    expect(res1.statusCode).toBe(400)
+})
