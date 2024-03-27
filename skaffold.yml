@@ -37,3 +37,9 @@ build:
         dockerfile: be.dockerfile
         buildArgs:
           FOLDER: orders
+    - image: ticketing-expiration-service
+      context: ./
+      docker:
+        dockerfile: be.dockerfile
+        buildArgs:
+          FOLDER: expiration

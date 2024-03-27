@@ -21,7 +21,7 @@ const createOrder = async (req: Request, res: Response) => {
     }
     // calculate an expiration date for this order
     const expiration = new Date();
-    expiration.setMinutes(expiration.getMinutes() + 15);
+    expiration.setMinutes(expiration.getMinutes() + 1);
     // build an order and save it to db
     const order = Order.build({
         expiresAt: expiration,

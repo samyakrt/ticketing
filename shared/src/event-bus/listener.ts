@@ -2,8 +2,9 @@ import { Message, Stan } from "node-nats-streaming";
 import { TicketCreatedEvent } from './events/tickets/ticket-created-event';
 import { TicketUpdatedEvent } from './events/tickets/ticket-updated-event';
 import { OrderCancelledEvent, OrderCreatedEvent } from "./events/orders";
+import { ExpirationCompleteEvent } from "./events/expiration";
 
-type Event = (TicketCreatedEvent | TicketUpdatedEvent  | OrderCreatedEvent | OrderCancelledEvent)
+type Event = (TicketCreatedEvent | TicketUpdatedEvent  | OrderCreatedEvent | OrderCancelledEvent | ExpirationCompleteEvent)
 
 export abstract class Listener<T extends Event> {
     protected ackWait = 5 * 1000;
