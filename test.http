@@ -16,11 +16,16 @@ Content-Type: application/json
 }
 
 ###
+GET http://ticketing.dev/api/tickets
+Content-Type: application/json
+
+
+###
 POST http://ticketing.dev/api/tickets
 Content-Type: application/json
 
 {
-    "title":"test",
+    "title":"new ticket",
     "price":400
 }
 
@@ -32,4 +37,12 @@ Content-Type: application/json
 {
     "title":"updated",
     "price":20
+}
+
+###
+POST http://ticketing.dev/api/orders
+Content-Type: application/json
+
+{
+    "ticketId":"6602327e7330a69b387887fc"
 }
