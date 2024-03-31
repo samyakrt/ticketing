@@ -33,7 +33,6 @@ startApp()
 process.on('uncaughtException', (error: Error) => {
     console.error(`Caught exception: ${error}\n` + `Exception origin: ${error.stack}`);
     natsWrapper.client.close();
-    process.exit(1);
 });
 process.on('SIGINT', () => natsWrapper.client.close())
 process.on('SIGTERM', () => natsWrapper.client.close())

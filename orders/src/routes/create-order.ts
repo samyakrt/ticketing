@@ -43,7 +43,7 @@ const createOrder = async (req: Request, res: Response) => {
             price: ticket.price,
         }
     })
-    return res.status(StatusCodes.CREATED).json({});
+    return res.status(StatusCodes.CREATED).json(order);
 }
 
 export default createOrder;

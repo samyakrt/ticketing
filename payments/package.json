@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
+    "@ticketing/shared": "*",
     "bcryptjs": "^2.4.3",
     "cookie-session": "^2.0.0",
     "envalid": "^8.0.0",
@@ -12,8 +13,8 @@
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "mongoose": "^8.0.3",
-    "zod": "^3.22.4",
-    "@ticketing/shared":"*"
+    "stripe": "^14.23.0",
+    "zod": "^3.22.4"
   },
   "scripts": {
     "start:dev": "nodemon",
@@ -28,7 +29,7 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
     },
-    "verbose":true
+    "verbose": true
   },
   "nodemonConfig": {
     "watch": [

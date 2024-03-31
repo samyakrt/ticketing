@@ -25,7 +25,7 @@ POST http://ticketing.dev/api/tickets
 Content-Type: application/json
 
 {
-    "title":"new ticket",
+    "title":"nginx",
     "price":400
 }
 
@@ -44,5 +44,15 @@ POST http://ticketing.dev/api/orders
 Content-Type: application/json
 
 {
-    "ticketId":"6602327e7330a69b387887fc"
+    "ticketId":"6607dbae8b5d31cb0f13710d"
+}
+
+
+###
+POST http://ticketing.dev/api/payments
+Content-Type: application/json
+
+{
+    "orderId":"6607dbb54eae6c7cccb72f6b",
+    "token":"tok_visa"
 }

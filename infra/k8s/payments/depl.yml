@@ -40,6 +40,17 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: jwt
+            - name: STRIPE_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-public
+                  key: public
+
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: secret
           ports:
             - containerPort: 3000
 

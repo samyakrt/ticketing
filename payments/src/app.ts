@@ -1,7 +1,8 @@
 import 'express-async-errors';
 import express from 'express';
 import cookieSession from 'cookie-session';
-import { currentUser,NotFoundException, handleErrors } from '@ticketing/shared';
+import { currentUser, NotFoundException, handleErrors } from '@ticketing/shared';
+import routes from '@/routes';
 
 const app = express();
 app.set('trust proxy', true);
@@ -11,9 +12,9 @@ app.use(cookieSession({
     secure: false,
 }));
 app.use(currentUser);
+app.use('/api/payments', routes);
 
-
-app.all('*',() => {
+app.all('*', () => {
     throw new NotFoundException();
 });
 app.use(handleErrors);

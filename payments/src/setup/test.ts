@@ -2,6 +2,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 jest.mock('@/nats-wrapper')
+jest.mock('@/env')
 
 let mongod: MongoMemoryServer;
 const secret = 'sekret100';
@@ -27,12 +28,12 @@ afterAll(async () => {
 it('runs',() => expect(2).toBe(2))
 
 declare global {
-    var signIn: () => string[];
+    var signIn: (userId?: string) => string[];
   }
 
-global.signIn = () => {
+global.signIn = (userId?: string) => {
     const payload = {
-        id: new mongoose.Types.ObjectId().toHexString(),
+        id: userId ?? new mongoose.Types.ObjectId().toHexString(),
         email: 'test@test.com'
     };
     const token = jwt.sign(payload,secret!)
