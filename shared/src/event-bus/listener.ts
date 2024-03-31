@@ -3,8 +3,9 @@ import { TicketCreatedEvent } from './events/tickets/ticket-created-event';
 import { TicketUpdatedEvent } from './events/tickets/ticket-updated-event';
 import { OrderCancelledEvent, OrderCreatedEvent } from "./events/orders";
 import { ExpirationCompleteEvent } from "./events/expiration";
+import { PaymentCreatedEvent } from "./events/payments/payment-created-event";
 
-type Event = (TicketCreatedEvent | TicketUpdatedEvent  | OrderCreatedEvent | OrderCancelledEvent | ExpirationCompleteEvent)
+type Event = (TicketCreatedEvent | TicketUpdatedEvent  | OrderCreatedEvent | OrderCancelledEvent | ExpirationCompleteEvent | PaymentCreatedEvent)
 
 export abstract class Listener<T extends Event> {
     protected ackWait = 5 * 1000;

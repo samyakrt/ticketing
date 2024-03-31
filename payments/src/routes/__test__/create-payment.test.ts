@@ -5,15 +5,16 @@ import mongoose from 'mongoose';
 import request from 'supertest';
 import stripe from '@/stripe';
 import Payment from '@/models/payment';
+import { natsWrapper } from '@/nats-wrapper';
 
 it('throws error if order is not found', async () => {
     const cookie = globalThis.signIn();
     const res = await request(app).post('/api/payments')
-    .set('Cookie', cookie)
-    .send({
-        token: 'asdasd',
-        orderId: new mongoose.Types.ObjectId().toHexString(),
-    })
+        .set('Cookie', cookie)
+        .send({
+            token: 'asdasd',
+            orderId: new mongoose.Types.ObjectId().toHexString(),
+        })
 
     expect(res.status).toBe(404)
 })
@@ -30,11 +31,11 @@ it('return unauthorized error if user does not match', async () => {
 
     await order.save();
     const res = await request(app).post('/api/payments')
-    .set('Cookie', cookie)
-    .send({
-        token: 'asdasd',
-       orderId: order.id,
-    })
+        .set('Cookie', cookie)
+        .send({
+            token: 'asdasd',
+            orderId: order.id,
+        })
 
     expect(res.statusCode).toBe(401)
 })
@@ -52,11 +53,11 @@ it('throws bad request if order is already cancelled', async () => {
 
     await order.save();
     const res = await request(app).post('/api/payments')
-    .set('Cookie', cookie)
-    .send({
-        token: 'asdasd',
-       orderId: order.id,
-    })
+        .set('Cookie', cookie)
+        .send({
+            token: 'asdasd',
+            orderId: order.id,
+        })
 
     expect(res.statusCode).toBe(400)
 })
@@ -75,11 +76,11 @@ it('return 200 if input is valid', async () => {
 
     await order.save();
     const res = await request(app).post('/api/payments')
-    .set('Cookie', cookie)
-    .send({
-        token: 'tok_visa',
-       orderId: order.id,
-    })
+        .set('Cookie', cookie)
+        .send({
+            token: 'tok_visa',
+            orderId: order.id,
+        })
 
     expect(res.statusCode).toBe(204)
     const stripeCharges = await stripe.charges.list({
@@ -95,4 +96,12 @@ it('return 200 if input is valid', async () => {
     })
 
     expect(payment).not.toBeNull();
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    const publishedPayload = JSON.parse((natsWrapper.client.publish as jest.Mock).mock.calls[0][1]);
+
+    expect(publishedPayload).toMatchObject({
+        id: payment?.id,
+        orderId: payment?.orderId,
+        stripeId: payment?.stripeId
+    })
 }, 30000)

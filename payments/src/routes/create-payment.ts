@@ -1,8 +1,10 @@
+import { PaymentCreatedPublisher } from '@/events/publisher/payment-created-publisher';
 import Order from '@/models/order';
 import Payment from '@/models/payment';
 import stripe from '@/stripe';
 import { BadRequestException, NotFoundException, OrderStatus, UnauthorizedException } from '@ticketing/shared';
 import { Request, Response } from 'express';
+import { natsWrapper } from '@/nats-wrapper';
 
 const createPayment = async (req: Request, res: Response) => {
     const { token, orderId } = req.body;
@@ -30,8 +32,13 @@ const createPayment = async (req: Request, res: Response) => {
     });
 
     await payment.save();
+    await new PaymentCreatedPublisher(natsWrapper.client).publish({
+        id: payment.id,
+        orderId: order.id,
+        stripeId: stripeCharge.id,
+    });
 
-    return res.status(204).json({});
+    return res.status(204).json({id: payment.id});
 };
 
 export default createPayment;
