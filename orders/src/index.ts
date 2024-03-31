@@ -6,6 +6,7 @@ import env from './env';
 import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
 import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
 import { OrderExpirationCompleteListener } from './events/listeners/order-expiration-complete-listener';
+import { PaymentCreatedListener } from './events/listeners/payment-created-listener';
 
 const startApp = async () => {
     try {
@@ -22,6 +23,7 @@ const startApp = async () => {
         new TicketCreatedListener(natsWrapper.client).listen();
         new TicketUpdatedListener(natsWrapper.client).listen();
         new OrderExpirationCompleteListener(natsWrapper.client).listen();
+        new PaymentCreatedListener(natsWrapper.client).listen();
 
         console.log('Connected to mongodb');
 
