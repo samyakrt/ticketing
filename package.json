@@ -8,7 +8,8 @@
         "shared",
         "ticketing",
         "orders",
-        "expiration"
+        "expiration",
+        "payments"
     ],
     "scripts": {
         "auth:start": "yarn workspace auth start:dev",

@@ -6,3 +6,6 @@ run:
 
 forward:
 	kubectl port-forward service/
+
+start-kube:
+	minikube start

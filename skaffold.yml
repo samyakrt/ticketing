@@ -43,3 +43,13 @@ build:
         dockerfile: be.dockerfile
         buildArgs:
           FOLDER: expiration
+    - image: ticketing-payment-service
+      context: ./
+      docker:
+        dockerfile: be.dockerfile
+        buildArgs:
+          FOLDER: payments
+      sync:
+        manual:
+          - src: 'payments/src/**/*.ts'
+            dest: .

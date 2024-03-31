@@ -1,0 +1,7 @@
+const stripe = {
+    charges: {
+        create: jest.fn().mockResolvedValue(true)
+    }
+}
+
+export default stripe;

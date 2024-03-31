@@ -3,10 +3,8 @@ import mongoose from 'mongoose';
 import app from './app';
 import { natsWrapper } from '@/nats-wrapper';
 import env from './env';
-import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
-import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
-import { OrderExpirationCompleteListener } from './events/listeners/order-expiration-complete-listener';
-import { PaymentCreatedListener } from './events/listeners/payment-created-listener';
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
 
 const startApp = async () => {
     try {
@@ -20,11 +18,8 @@ const startApp = async () => {
             process.exit()
         })
 
-        new TicketCreatedListener(natsWrapper.client).listen();
-        new TicketUpdatedListener(natsWrapper.client).listen();
-        new OrderExpirationCompleteListener(natsWrapper.client).listen();
-        new PaymentCreatedListener(natsWrapper.client).listen();
-
+        new OrderCreatedListener(natsWrapper.client).listen();
+        new OrderCancelledListener(natsWrapper.client).listen();
         console.log('Connected to mongodb');
 
         app.listen(3000, () => console.log('listening to port 3000'))
@@ -38,7 +33,6 @@ startApp()
 process.on('uncaughtException', (error: Error) => {
     console.error(`Caught exception: ${error}\n` + `Exception origin: ${error.stack}`);
     natsWrapper.client.close();
-    process.exit(1);
 });
 process.on('SIGINT', () => natsWrapper.client.close())
 process.on('SIGTERM', () => natsWrapper.client.close())
